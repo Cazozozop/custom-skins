@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Custom Skins</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: var(--y, 0);
+      left: var(--x, 0);
+      width: 150%;
+      height: 150%;
+      background-image: url("https://github.com/Cazozozop/custom-skins/raw/main/IMG_9954.jpeg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: blur(8px) brightness(0.9);
+      transform: translate(-25%, -25%);
+      transition: top 0.1s linear, left 0.1s linear;
+      z-index: -1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #1e90ff, #00bfff);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-download:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .code-box {
+      margin-top: 30px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 15px;
+      width: 90%;
+      max-width: 800px;
+      position: relative;
+    }
+
+    .code-box pre {
+      color: #00ffcc;
+      text-align: left;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    .btn-copy {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #444;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-copy:hover {
+      background: #666;
+    }
+
+    .subscribe-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #ff0000;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s, transform 0.3s;
+      z-index: 3;
+    }
+
+    .subscribe-btn img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    .subscribe-btn:hover {
+      background: #cc0000;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="btn-download" onclick="window.location.href='https://github.com/Cazozozop/custom-skins/raw/main/Tutorial%20Pack.zip'">Download Pack</button>
+
+    <div class="code-box">
+      <button class="btn-copy" onclick="copyCode()">Copy</button>
+      <pre id="code">
+api.updateEntityNodeMeshAttachment(myId, "ArmRightMesh", "BloxdBlock", {blockName:"INTERNAL_MESH_Cyan Balloon", size: 0.975, meshOffset:[0, 0, 0]}, [0, -0.725, 0], [0, 0, 0])
+api.updateEntityNodeMeshAttachment(myId, "ArmLeftMesh", "BloxdBlock", {blockName:"INTERNAL_MESH_Black Balloon", size: 0.975, meshOffset:[0, 0, 0]}, [0, -0.725, 0], [0, 0, 0])
+api.updateEntityNodeMeshAttachment(myId, "HeadMesh", "BloxdBlock", {blockName:"INTERNAL_MESH_Brown Balloon", size: 0.975, meshOffset:[0, 0, 0]}, [0, 0, 0], [0, 3.145, 0])
+api.updateEntityNodeMeshAttachment(myId, "TorsoNode", "BloxdBlock", {blockName:"INTERNAL_MESH_Blue Balloon", size: 0.975, meshOffset:[0, 0, 0]}, [0, 0, 0], [0, 3.14, 0])
+api.updateEntityNodeMeshAttachment(myId, "LegLeftMesh", "BloxdBlock", {blockName:"INTERNAL_MESH_Red Balloon", size: 0.975, meshOffset:[0, 0, 0]}, [0, -0.725, 0], [0, 3.145, 0])
+api.updateEntityNodeMeshAttachment(myId, "LegRightMesh", "BloxdBlock", {blockName:"INTERNAL_MESH_Green Balloon", size: 0.975, meshOffset:[0, 0, 0]}, [0, -0.725, 0], [0, 3.145, 0])</pre>
+    </div>
+  </div>
+
+  <a class="subscribe-btn" href="https://www.youtube.com/@Cazozozop?app=desktop" target="_blank">
+    <img src="https://www.svgrepo.com/show/13671/youtube.svg" alt="YouTube" />
+    Subscribe
+  </a>
+
+  <script>
+    function copyCode() {
+      const code = document.getElementById("code").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert("Code copied to clipboard!");
+      });
+    }
+
+    // Animation du fond
+    let x = 0.5, y = 0.5;
+    let dx = 0.0002, dy = 0.00015;
+
+    function animateBackground() {
+      x += dx;
+      y += dy;
+
+      if (x > 0.7 || x < 0.3) dx = -dx;
+      if (y > 0.7 || y < 0.3) dy = -dy;
+
+      document.body.style.setProperty('--x', `${y * 100}%`);
+      document.body.style.setProperty('--y', `${x * 100}%`);
+
+      requestAnimationFrame(animateBackground);
+    }
+
+    animateBackground();
+  </script>
+</body>
+</html>
