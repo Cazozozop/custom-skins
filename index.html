@@ -188,13 +188,34 @@ api.updateEntityNodeMeshAttachment(myId, "LegRightMesh", "BloxdBlock", {blockNam
     <div class="credit-text">If you use my code, make sure to credit me. Thanks! :D</div>
   </div>
 
-  <script>
-    function copyCode() {
-      const code = document.getElementById("code").innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        alert("Code copied!");
-      });
+<script>
+  function copyCode() {
+    const codeElement = document.getElementById("code");
+    
+    // Crée un champ texte temporaire
+    const tempTextarea = document.createElement("textarea");
+    tempTextarea.value = codeElement.textContent; // Utiliser textContent = format exact avec retours à la ligne
+    document.body.appendChild(tempTextarea);
+
+    // Évite les sauts de page sur mobile
+    tempTextarea.style.position = "fixed";
+    tempTextarea.style.top = "-1000px";
+    tempTextarea.style.opacity = "0";
+
+    tempTextarea.focus();
+    tempTextarea.select();
+
+    try {
+      const success = document.execCommand('copy');
+      alert(success ? "Code copied!" : "Copy failed.");
+    } catch (err) {
+      alert("Copy not supported.");
     }
-  </script>
+
+    // Nettoyer
+    document.body.removeChild(tempTextarea);
+  }
+</script>
+
 </body>
 </html>
